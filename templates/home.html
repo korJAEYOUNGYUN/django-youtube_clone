@@ -2,4 +2,9 @@
 
 {% block content %}
     home
+    <div home-videos>
+        {% for video in video_list %}
+            {% include 'mixins/video_block.html' with video=video %}
+        {% endfor %}
+    </div>
 {% endblock %}

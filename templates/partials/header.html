@@ -1,0 +1,34 @@
+<header class="header">
+    <div class="header__wrapper">
+        <div class="header__column">
+            <a href={% url 'home' %}><i class="fab fa-youtube"></i></a>
+        </div>
+        <div class="header__column">
+            <form action={% url 'search' %}, method="get">
+                <input type="text" placeholder="Search by term..." name="term">
+            </form>
+        </div>
+        <div class="header__column">
+            <ul>
+                {% if not loggedUser %}
+                    <li>
+                        <a href={% url 'join' %}>Join</a>
+                    </li>
+                    <li>
+                        <a href={% url 'login' %}>Login</a>
+                    </li>
+                {% else %}
+                    <li>
+                        <a href={% url 'upload' %}>Upload</a>
+                    </li>
+                    <li>
+                        <a href={% url 'user_detail' 1 %}>Profile</a>
+                    </li>
+                    <li>
+                        <a href={% url 'logout' %}>Logout</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</header>

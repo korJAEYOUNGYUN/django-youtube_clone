@@ -2,11 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>YunTube</title>
+    <script src="https://kit.fontawesome.com/2751d391c5.js"></script>
 </head>
 <body>
-    main
-    {% block content %}
-    {% endblock %}
+    {% include 'partials/header.html'%}
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+    {% include 'partials/footer.html' %}
 </body>
 </html>
