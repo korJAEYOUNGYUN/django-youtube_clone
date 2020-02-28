@@ -1,10 +1,11 @@
+from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views.generic import TemplateView, FormView
 from django.views import View
 
-from account.forms import JoinForm
+from account.forms import JoinForm, LoginForm
 from account.models import Profile
 
 
@@ -16,12 +17,26 @@ class ChangePassword(TemplateView):
     template_name = 'change_password.html'
 
 
-class Login(TemplateView):
+class Login(FormView):
     template_name = 'login.html'
+    form_class = LoginForm
+
+    def form_valid(self, form):
+        username = form.data['username']
+        password = form.data['password']
+
+        user = authenticate(username=username, password=password)
+
+        if user is not None:
+            login(self.request, user)
+            return redirect(reverse('home'))
+        else:
+            return self.render_to_response({'form': form})
 
 
-# class Logout(TemplateView):
-#     template_name = 'logout.html'
+def logout(request):
+    logout(request)
+    return redirect(reverse('home'))
 
 
 class Join(FormView):

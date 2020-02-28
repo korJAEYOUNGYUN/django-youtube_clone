@@ -9,3 +9,8 @@ class JoinForm(Form):
     email = forms.EmailField()
     password = forms.CharField(widget=forms.PasswordInput())
     password2 = forms.CharField(widget=forms.PasswordInput())
+
+
+class LoginForm(Form):
+    username = forms.CharField(label='Name', max_length=100)
+    password = forms.CharField(widget=forms.PasswordInput())
