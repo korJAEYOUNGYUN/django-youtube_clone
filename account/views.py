@@ -1,8 +1,8 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
-from django.urls import reverse
-from django.views.generic import TemplateView, FormView
+from django.urls import reverse, reverse_lazy
+from django.views.generic import TemplateView, FormView, RedirectView
 from django.views import View
 
 from account.forms import JoinForm, LoginForm
@@ -34,9 +34,12 @@ class Login(FormView):
             return self.render_to_response({'form': form})
 
 
-def logout(request):
-    logout(request)
-    return redirect(reverse('home'))
+class Logout(RedirectView):
+    url = reverse_lazy('home')
+
+    def get(self, request, *args, **kwargs):
+        logout(request)
+        return super(Logout, self).get(request, *args, **kwargs)
 
 
 class Join(FormView):
