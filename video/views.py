@@ -11,9 +11,17 @@ class Home(ListView):
 
 
 class Search(ListView):
-    queryset = Video.objects.all()
     context_object_name = 'video_list'
     template_name = 'search.html'
+
+    def get_queryset(self):
+        self.searching_by = self.request.GET['searching_by']
+        video_list = Video.objects.filter(title__contains=self.searching_by)
+        return video_list
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        kwargs['searching_by'] = self.searching_by
+        return super(Search, self).get_context_data(**kwargs)
 
 
 class EditVideo(TemplateView):

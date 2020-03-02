@@ -1,5 +1,12 @@
 {% extends 'layouts/basic.html' %}
 
 {% block content %}
-    search
+    <div class="search__header">
+        <h3>Searching for: {{ searching_by }}</h3>
+    </div>
+    <div class="search__videos">
+        {% for video in video_list %}
+            {% include 'mixins/video_block.html' with video=video %}
+        {% endfor %}
+    </div>
 {% endblock %}
