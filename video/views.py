@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.views.generic import ListView, TemplateView
 
@@ -24,11 +25,11 @@ class Search(ListView):
         return super(Search, self).get_context_data(**kwargs)
 
 
-class EditVideo(TemplateView):
+class EditVideo(LoginRequiredMixin, TemplateView):
     template_name = 'edit_video.html'
 
 
-class Upload(TemplateView):
+class Upload(LoginRequiredMixin, TemplateView):
     template_name = 'upload.html'
 
 
@@ -36,5 +37,5 @@ class VideoDetail(TemplateView):
     template_name = 'video_detail.html'
 
 
-# class DeleteVideo(TemplateView):
+# class DeleteVideo(LoginRequiredMixin, TemplateView):
 #     pass

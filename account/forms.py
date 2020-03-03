@@ -14,3 +14,9 @@ class JoinForm(Form):
 class LoginForm(Form):
     username = forms.CharField(label='Name', max_length=100)
     password = forms.CharField(widget=forms.PasswordInput())
+
+
+class ChangePasswordForm(Form):
+    original_password = forms.CharField(widget=forms.PasswordInput())
+    new_password = forms.CharField(widget=forms.PasswordInput())
+    new_password2 = forms.CharField(widget=forms.PasswordInput())
