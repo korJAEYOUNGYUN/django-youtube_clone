@@ -1,13 +1,14 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse, reverse_lazy
-from django.views.generic import TemplateView, FormView, RedirectView
+from django.views.generic import TemplateView, FormView, RedirectView, ListView
 from django.views import View
 
 from account import forms
 from account.models import Profile
+from video.models import Video
 
 
 class EditProfile(LoginRequiredMixin, TemplateView):
@@ -81,5 +82,17 @@ class Join(FormView):
             return self.render_to_response({'form': form})
         
 
-class UserDetail(LoginRequiredMixin, TemplateView):
+class UserDetail(ListView):
+    context_object_name = 'video_list'
     template_name = 'user_detail.html'
+
+    def get_queryset(self):
+        username = self.kwargs['username']
+        user = get_object_or_404(User, username=username)
+        self.user = user
+        video_list = Video.objects.filter(creator=user.profile)
+        return video_list
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        kwargs['user'] = self.user
+        return super(UserDetail, self).get_context_data(**kwargs)

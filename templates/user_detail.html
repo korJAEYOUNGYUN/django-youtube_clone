@@ -1,5 +1,25 @@
 {% extends 'layouts/basic.html' %}
 
 {% block content %}
-    user detail
+    <div class="user-profile">
+        <div class="user-profile__header">
+            <img class="u-avatar" src={{ user.avatar }}>
+            <h4 class="profile__username">{{ user.username }}</h4>
+        </div>
+        {% if request.user.id == user.id %}
+            <div class="user-profile__btns">
+                <a href={% url 'edit_profile' %}>
+                    <button>Edit Profile</button>
+                </a>
+                <a href={% url 'change_password' %}>
+                    <button>Change Password</button>
+                </a>
+            </div>
+        {% endif %}
+        <div class="uploaded-videos">
+            {% for video in video_list %}
+                {% include 'mixins/video_block.html' with video=video %}
+            {% endfor %}
+        </div>
+    </div>
 {% endblock %}
