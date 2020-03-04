@@ -3,7 +3,7 @@
 {% block content %}
     <div class="user-profile">
         <div class="user-profile__header">
-            <img class="u-avatar" src={{ user.avatar }}>
+            <img class="u-avatar" src={{ user.profile.avatar.url }}>
             <h4 class="profile__username">{{ user.username }}</h4>
         </div>
         {% if request.user.id == user.id %}

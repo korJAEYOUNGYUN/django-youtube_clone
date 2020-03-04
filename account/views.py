@@ -11,8 +11,31 @@ from account.models import Profile
 from video.models import Video
 
 
-class EditProfile(LoginRequiredMixin, TemplateView):
+class EditProfile(LoginRequiredMixin, FormView):
+    form_class = forms.EditProfileForm
     template_name = 'edit_profile.html'
+
+    def get_initial(self):
+        initial = super(EditProfile, self).get_initial()
+        initial.update({'username': self.request.user.username,
+                        'email': self.request.user.email})
+
+        return initial
+
+    def form_valid(self, form):
+        user = self.request.user
+        avatar = form.files['avatar']
+        username = form.data['username']
+        email = form.data['email']
+
+        if avatar:
+            user.profile.avatar = avatar
+            user.profile.save()
+        user.username = username
+        user.email = email
+        user.save()
+
+        return redirect(reverse('home'))
 
 
 class ChangePassword(LoginRequiredMixin, FormView):

@@ -20,3 +20,9 @@ class ChangePasswordForm(Form):
     original_password = forms.CharField(widget=forms.PasswordInput())
     new_password = forms.CharField(widget=forms.PasswordInput())
     new_password2 = forms.CharField(widget=forms.PasswordInput())
+
+
+class EditProfileForm(Form):
+    avatar = forms.ImageField(required=False)
+    username = forms.CharField(label='Name', max_length=100, initial='username')
+    email = forms.EmailField(initial='email')
