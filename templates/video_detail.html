@@ -1,5 +1,27 @@
 {% extends 'layouts/basic.html' %}
 
 {% block content %}
-    video detail
+    <div class="video-detail__container">
+        <video class="videoPlayer" src={{ video.video_file }} controls=true></video>
+        <div class="video__info">
+            {% if request.user.is_authenticated and video.creator.user.id == request.user.id %}
+                <a href={% url 'edit_video' video.id %}>
+                    <button>Edit Video</button>
+                </a>
+            {% endif %}
+
+            <h5 class="video__title">{{ video.title }}</h5>
+            <p class="video__description">{{ video.description }}</p>
+            <div class="video__author">
+                <p>Uploaded by <a href={% url 'user_detail' video.creator.user.username %}>{{ video.creator.user.username }}</a></p>
+            </div>
+            {% if video.views == 1 %}
+                <span class="video__views">1 view</span>
+            {% else %}
+                <span class="video__views">{{ video.views }} views</span>
+            {% endif %}
+        </div>
+
+        {% comment %}video comments{% endcomment %}
+    </div>
 {% endblock %}

@@ -1,6 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render
-from django.views.generic import ListView, TemplateView
+from django.shortcuts import render, get_object_or_404
+from django.views.generic import ListView, TemplateView, DetailView
 
 from video.models import Video
 
@@ -25,6 +25,7 @@ class Search(ListView):
         return super(Search, self).get_context_data(**kwargs)
 
 
+# 비디오 creator와 유저가 일치하는지 확인해야함
 class EditVideo(LoginRequiredMixin, TemplateView):
     template_name = 'edit_video.html'
 
@@ -33,8 +34,14 @@ class Upload(LoginRequiredMixin, TemplateView):
     template_name = 'upload.html'
 
 
-class VideoDetail(TemplateView):
+class VideoDetail(DetailView):
+    context_object_name = 'video'
     template_name = 'video_detail.html'
+
+    def get_queryset(self):
+        video_id = self.kwargs['id']
+        video = get_object_or_404(Video, id=video_id)
+        return video
 
 
 # class DeleteVideo(LoginRequiredMixin, TemplateView):
