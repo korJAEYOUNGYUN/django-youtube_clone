@@ -24,7 +24,7 @@ class EditProfile(LoginRequiredMixin, FormView):
 
     def form_valid(self, form):
         user = self.request.user
-        avatar = form.files['avatar']
+        avatar = form.files.get('avatar')
         username = form.data['username']
         email = form.data['email']
 

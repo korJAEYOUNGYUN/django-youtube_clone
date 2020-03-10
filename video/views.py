@@ -1,7 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, get_object_or_404, redirect
-from django.urls import reverse
-from django.views.generic import ListView, TemplateView, DetailView, FormView
+from django.urls import reverse, reverse_lazy
+from django.views.generic import ListView, TemplateView, DetailView, FormView, DeleteView
 
 from video import forms
 from video.models import Video
@@ -27,9 +27,8 @@ class Search(ListView):
         return super(Search, self).get_context_data(**kwargs)
 
 
-# 비디오 creator와 유저가 일치하는지 확인해야함
 class EditVideo(LoginRequiredMixin, FormView):
-    template_name = 'edit_video.html'
+    template_name = 'video/edit_video.html'
     form_class = forms.EditVideoForm
 
     def get_initial(self):
@@ -62,7 +61,7 @@ class EditVideo(LoginRequiredMixin, FormView):
 
 
 class Upload(LoginRequiredMixin, FormView):
-    template_name = 'upload.html'
+    template_name = 'video/upload.html'
     form_class = forms.UploadForm
 
     def form_valid(self, form):
@@ -80,9 +79,16 @@ class Upload(LoginRequiredMixin, FormView):
 class VideoDetail(DetailView):
     model = Video
     context_object_name = 'video'
-    template_name = 'video_detail.html'
+    template_name = 'video/video_detail.html'
 
 
+class DeleteVideo(LoginRequiredMixin, DeleteView):
+    model = Video
+    success_url = reverse_lazy('home')
 
-# class DeleteVideo(LoginRequiredMixin, TemplateView):
-#     pass
+    def delete(self, request, *args, **kwargs):
+        video = self.get_object()
+        if self.request.user.id == video.creator.user.id:
+            return super(DeleteVideo, self).delete(request, *args, **kwargs)
+        else:
+            return redirect(reverse('home'))

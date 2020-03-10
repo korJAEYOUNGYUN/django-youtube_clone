@@ -8,6 +8,9 @@
                 <a href={% url 'edit_video' video.id %}>
                     <button>Edit Video</button>
                 </a>
+                <a href={% url 'delete_video' video.id %}>
+                    <button>Delete Video</button>
+                </a>
             {% endif %}
 
             <h5 class="video__title">{{ video.title }}</h5>
