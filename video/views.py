@@ -1,7 +1,9 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render, get_object_or_404
-from django.views.generic import ListView, TemplateView, DetailView
+from django.shortcuts import render, get_object_or_404, redirect
+from django.urls import reverse
+from django.views.generic import ListView, TemplateView, DetailView, FormView
 
+from video import forms
 from video.models import Video
 
 
@@ -30,18 +32,27 @@ class EditVideo(LoginRequiredMixin, TemplateView):
     template_name = 'edit_video.html'
 
 
-class Upload(LoginRequiredMixin, TemplateView):
+class Upload(LoginRequiredMixin, FormView):
     template_name = 'upload.html'
+    form_class = forms.UploadForm
+
+    def form_valid(self, form):
+        user = self.request.user.profile
+        video_file = form.files['video_file']
+        title = form.data['title']
+        description = form.data['description']
+
+        video = Video(video_file=video_file, title=title, description=description, creator=user)
+        video.save()
+
+        return redirect(reverse('video_detail', args=(video.id,)))
 
 
 class VideoDetail(DetailView):
+    model = Video
     context_object_name = 'video'
     template_name = 'video_detail.html'
 
-    def get_queryset(self):
-        video_id = self.kwargs['id']
-        video = get_object_or_404(Video, id=video_id)
-        return video
 
 
 # class DeleteVideo(LoginRequiredMixin, TemplateView):

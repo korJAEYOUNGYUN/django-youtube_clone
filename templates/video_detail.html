@@ -2,7 +2,7 @@
 
 {% block content %}
     <div class="video-detail__container">
-        <video class="videoPlayer" src={{ video.video_file }} controls=true></video>
+        <video class="videoPlayer" src={{ video.video_file.url }} controls=true></video>
         <div class="video__info">
             {% if request.user.is_authenticated and video.creator.user.id == request.user.id %}
                 <a href={% url 'edit_video' video.id %}>

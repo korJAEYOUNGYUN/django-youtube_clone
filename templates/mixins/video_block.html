@@ -1,6 +1,6 @@
 <div class="video-block">
     <a href={% url 'video_detail' video.id %}>
-        <video class="video-block__thumbnail" src="{{ video.videoFile }}" controls=true></video>
+        <video class="video-block__thumbnail" src="{{ video.video_file.url }}" controls=true></video>
         <h4 class="video-block__title">{{ video.title }}</h4>
         {% if video.views == 1 %}
             <h6 class="video-block__views">1 view</h6>
