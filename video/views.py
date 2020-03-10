@@ -28,8 +28,37 @@ class Search(ListView):
 
 
 # 비디오 creator와 유저가 일치하는지 확인해야함
-class EditVideo(LoginRequiredMixin, TemplateView):
+class EditVideo(LoginRequiredMixin, FormView):
     template_name = 'edit_video.html'
+    form_class = forms.EditVideoForm
+
+    def get_initial(self):
+        initial = super(EditVideo, self).get_initial()
+        video = get_object_or_404(Video, id=self.kwargs['id'])
+        self.video = video
+        initial.update({'title': video.title,
+                        'description': video.description})
+
+        return initial
+
+    def form_valid(self, form):
+        creator = self.video.creator
+
+        if self.request.user.id == creator.user.id:
+            title = form.data['title']
+            description = form.data['description']
+
+            self.video.title = title
+            self.video.description = description
+            self.video.save()
+
+            return redirect(reverse('video_detail', args=(self.video.id,)))
+        else:
+            return redirect(reverse('home'))
+
+    def get_context_data(self, **kwargs):
+        kwargs['video_id'] = self.kwargs['id']
+        return super(EditVideo, self).get_context_data(**kwargs)
 
 
 class Upload(LoginRequiredMixin, FormView):

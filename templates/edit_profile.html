@@ -2,7 +2,7 @@
 
 {% block content %}
     <div class="form-container">
-        <form action={% url 'edit_profile' %} method="post" enctype="multipart/form-data">
+        <form method="post" enctype="multipart/form-data" action={% url 'edit_profile' %}>
             {% csrf_token %}
             {{ form }}
             <input type="submit" value="Update Profile">

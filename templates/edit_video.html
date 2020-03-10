@@ -1,5 +1,11 @@
 {% extends 'layouts/basic.html' %}
 
 {% block content %}
-    edit video
+    <div class="form-container">
+        <form method="post" enctype="multipart/form-data" action={% url 'edit_video' video_id %}>
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit" value="Edit Video">
+        </form>
+    </div>
 {% endblock %}
