@@ -1,8 +1,7 @@
 {% extends 'layouts/basic.html' %}
 
 {% block content %}
-    home
-    <div home-videos>
+    <div class="home-videos">
         {% for video in video_list %}
             {% include 'mixins/video_block.html' with video=video %}
         {% endfor %}
