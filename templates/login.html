@@ -3,7 +3,7 @@
 {% block content %}
     <form method="post" action={% url 'login' %}>
         {% csrf_token %}
-        {{ form }}
+        {{ form.as_p }}
         <input type="submit" value="Login">
     </form>
 {% endblock %}

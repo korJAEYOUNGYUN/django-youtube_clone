@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>YunTube</title>
-    <script src="https://kit.fontawesome.com/2751d391c5.js"></script>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
     {% include 'partials/header.html'%}
@@ -12,5 +13,6 @@
         {% endblock %}
     </main>
     {% include 'partials/footer.html' %}
+    <script src="https://kit.fontawesome.com/2751d391c5.js"></script>
 </body>
 </html>
