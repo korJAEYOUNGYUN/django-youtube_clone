@@ -81,6 +81,12 @@ class VideoDetail(DetailView):
     context_object_name = 'video'
     template_name = 'video/video_detail.html'
 
+    def dispatch(self, request, *args, **kwargs):
+        video = self.get_object()
+        video.views += 1
+        video.save()
+        return super(VideoDetail, self).dispatch(request, *args, **kwargs)
+
 
 class DeleteVideo(LoginRequiredMixin, DeleteView):
     model = Video
