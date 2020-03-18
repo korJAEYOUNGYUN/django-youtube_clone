@@ -1,10 +1,11 @@
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse, reverse_lazy
 from django.views.generic import ListView, TemplateView, DetailView, FormView, DeleteView
 
 from video import forms
-from video.models import Video
+from video.models import Video, Comment
 
 
 class Home(ListView):
@@ -76,16 +77,33 @@ class Upload(LoginRequiredMixin, FormView):
         return redirect(reverse('video_detail', args=(video.id,)))
 
 
-class VideoDetail(DetailView):
+class VideoDetail(DetailView, FormView):
     model = Video
     context_object_name = 'video'
     template_name = 'video/video_detail.html'
+    form_class = forms.AddCommentForm
 
-    def dispatch(self, request, *args, **kwargs):
+    def get(self, request, *args, **kwargs):
         video = self.get_object()
         video.views += 1
         video.save()
-        return super(VideoDetail, self).dispatch(request, *args, **kwargs)
+        return super(VideoDetail, self).get(request, *args, **kwargs)
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        video = self.get_object()
+        kwargs['comments'] = video.comment_set.all()
+        return super(VideoDetail, self).get_context_data(**kwargs)
+
+    def form_valid(self, form):
+        user = self.request.user.profile
+        video = self.get_object()
+        text = form.data['comment']
+
+        comment = Comment(text=text, video=video, author=user)
+        comment.save()
+
+        return redirect(reverse('video_detail', args=(video.id,)))
+
 
 
 class DeleteVideo(LoginRequiredMixin, DeleteView):

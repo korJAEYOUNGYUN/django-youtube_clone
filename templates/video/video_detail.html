@@ -25,6 +25,21 @@
             {% endif %}
         </div>
 
-        {% comment %}video comments{% endcomment %}
+        <div class="video__comments">
+            {% if request.user.is_authenticated %}
+                <form class="add__comment" method="post" action={% url 'video_detail' video.id%}>
+                    {% csrf_token %}
+                    {{ form }}
+                </form>
+            {% endif %}
+            <ul class="video__comments-list">
+                {% for comment in comments %}
+                    <li>
+                        <span>{{ comment.author }}</span>
+                        <span>{{ comment.text }}</span>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
     </div>
 {% endblock %}
