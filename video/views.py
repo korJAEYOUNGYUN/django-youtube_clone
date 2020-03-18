@@ -105,7 +105,6 @@ class VideoDetail(DetailView, FormView):
         return redirect(reverse('video_detail', args=(video.id,)))
 
 
-
 class DeleteVideo(LoginRequiredMixin, DeleteView):
     model = Video
     success_url = reverse_lazy('home')
