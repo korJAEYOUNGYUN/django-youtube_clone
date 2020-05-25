@@ -13,7 +13,8 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -24,12 +25,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '$zaryp@kolrgxub2!4g^(mwtii!wsnsby80h-hwdwkg%^+a3!q'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
-
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -39,8 +34,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'video',
-    'account',
+    'django_youtube_clone.apps.video',
+    'django_youtube_clone.apps.account',
 ]
 
 MIDDLEWARE = [
@@ -58,8 +53,7 @@ ROOT_URLCONF = 'django_youtube_clone.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')]
-        ,
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -75,18 +69,6 @@ TEMPLATES = [
 WSGI_APPLICATION = 'django_youtube_clone.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/3.0/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'HOST': os.environ['MYSQL_HOST'],
-        'NAME': os.environ['MYSQL_DATABASE'],
-        'USER': os.environ['MYSQL_USER'],
-        'PASSWORD': os.environ['MYSQL_PASSWORD']
-    }
-}
 
 
 # Password validation

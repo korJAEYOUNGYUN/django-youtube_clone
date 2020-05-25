@@ -1,7 +1,6 @@
 from django.urls import path
 
-from account import views
-
+from django_youtube_clone.apps.account import views
 
 urlpatterns = [
     path('users/edit-profile/', views.EditProfile.as_view(), name='edit_profile'),

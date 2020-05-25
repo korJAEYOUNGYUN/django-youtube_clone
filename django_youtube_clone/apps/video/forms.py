@@ -1,6 +1,6 @@
 from django.forms import Form, ModelForm, CharField
 
-from video.models import Video, Comment
+from django_youtube_clone.apps.video.models import Video
 
 
 class UploadForm(ModelForm):

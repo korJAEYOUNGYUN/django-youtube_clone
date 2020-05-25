@@ -1,7 +1,5 @@
 from django import forms
-from django.forms import Form, ModelForm
-
-from account.models import Profile
+from django.forms import Form
 
 
 class JoinForm(Form):

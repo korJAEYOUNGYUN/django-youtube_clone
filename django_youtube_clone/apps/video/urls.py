@@ -1,7 +1,6 @@
 from django.urls import path
 
-from video import views
-
+from django_youtube_clone.apps.video import views
 
 urlpatterns = [
     path('', views.Home.as_view(), name='home'),

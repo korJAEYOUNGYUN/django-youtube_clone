@@ -1,14 +1,13 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse, reverse_lazy
-from django.views.generic import TemplateView, FormView, RedirectView, ListView
-from django.views import View
+from django.views.generic import FormView, RedirectView, ListView
 
-from account import forms
-from account.models import Profile
-from video.models import Video
+from django_youtube_clone.apps.account import forms
+from django_youtube_clone.apps.account.models import Profile
+from django_youtube_clone.apps.video.models import Video
 
 
 class EditProfile(LoginRequiredMixin, FormView):

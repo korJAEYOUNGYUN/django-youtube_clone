@@ -2,4 +2,4 @@ from django.apps import AppConfig
 
 
 class VideoConfig(AppConfig):
-    name = 'video'
+    name = 'django_youtube_clone.apps.video'

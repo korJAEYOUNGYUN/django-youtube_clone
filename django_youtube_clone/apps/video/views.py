@@ -1,11 +1,10 @@
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse, reverse_lazy
-from django.views.generic import ListView, TemplateView, DetailView, FormView, DeleteView
+from django.views.generic import ListView, DetailView, FormView, DeleteView
 
-from video import forms
-from video.models import Video, Comment
+from django_youtube_clone.apps.video import forms
+from django_youtube_clone.apps.video.models import Video, Comment
 
 
 class Home(ListView):

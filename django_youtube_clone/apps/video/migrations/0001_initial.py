@@ -23,7 +23,7 @@ class Migration(migrations.Migration):
                 ('views', models.PositiveIntegerField(default=0)),
                 ('create_at', models.DateTimeField(auto_now_add=True)),
                 ('last_modified', models.DateTimeField(auto_now=True)),
-                ('creator', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='account.Profile')),
+                ('creator', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='django_youtube_clone.apps.account.Profile')),
             ],
         ),
         migrations.CreateModel(
@@ -33,8 +33,8 @@ class Migration(migrations.Migration):
                 ('text', models.CharField(max_length=200)),
                 ('create_at', models.DateTimeField(auto_now_add=True)),
                 ('last_modified', models.DateTimeField(auto_now=True)),
-                ('author', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='account.Profile')),
-                ('video', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='video.Video')),
+                ('author', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='django_youtube_clone.apps.account.Profile')),
+                ('video', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='django_youtube_clone.apps.video.Video')),
             ],
         ),
     ]
