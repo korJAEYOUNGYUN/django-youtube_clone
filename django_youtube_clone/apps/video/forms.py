@@ -6,7 +6,7 @@ from django_youtube_clone.apps.video.models import Video
 class UploadForm(ModelForm):
     class Meta:
         model = Video
-        fields = ['video_file', 'title', 'description']
+        fields = ['title', 'description', 'video_file']
 
 
 class EditVideoForm(ModelForm):

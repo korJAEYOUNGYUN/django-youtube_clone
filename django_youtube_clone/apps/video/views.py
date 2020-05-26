@@ -1,7 +1,10 @@
+import os
+
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse, reverse_lazy
 from django.views.generic import ListView, DetailView, FormView, DeleteView
+from django.conf import settings
 
 from django_youtube_clone.apps.video import forms
 from django_youtube_clone.apps.video.models import Video, Comment
@@ -111,6 +114,7 @@ class DeleteVideo(LoginRequiredMixin, DeleteView):
     def delete(self, request, *args, **kwargs):
         video = self.get_object()
         if self.request.user.id == video.creator.user.id:
+            os.remove(os.path.join(settings.MEDIA_ROOT, video.video_file.name))
             return super(DeleteVideo, self).delete(request, *args, **kwargs)
         else:
             return redirect(reverse('home'))

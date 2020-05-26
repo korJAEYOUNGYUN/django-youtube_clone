@@ -1,11 +1,11 @@
-<div class="video-block">
+<div class="videoBlock">
     <a href={% url 'video_detail' video.id %}>
-        <video class="video-block__thumbnail" src="{{ video.video_file.url }}" controls></video>
+        <video class="videoBlock__thumbnail" src="{{ video.video_file.url }}" controls></video>
         <h4 class="video-block__title">{{ video.title }}</h4>
         {% if video.views == 1 %}
-            <h6 class="video-block__views">1 view</h6>
+            <h6 class="videoBlock__views">1 view</h6>
         {% else %}
-            <h6 class="video-block__views">{{ video.views }} views</h6>
+            <h6 class="videoBlock__views">{{ video.views }} views</h6>
         {% endif %}
     </a>
 </div>

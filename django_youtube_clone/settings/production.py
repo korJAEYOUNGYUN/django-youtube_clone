@@ -1,7 +1,7 @@
 from .base import *
 
 
-ALLOWED_HOSTS = [host for host in (os.environ['ALLOWED_HOSTS']).split(',')]
+ALLOWED_HOSTS = ['jaeyoungyun.pythonanywhere.com']
 
 DATABASES = {
     'default': {
