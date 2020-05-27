@@ -31,7 +31,8 @@ class EditProfile(LoginRequiredMixin, FormView):
         email = form.data['email']
 
         if avatar:
-            os.remove(os.path.join(settings.MEDIA_ROOT, user.profile.avatar.name))
+            if user.profile.avatar.name != 'uploads/avatars/no_avatar.png':
+                os.remove(os.path.join(settings.MEDIA_ROOT, user.profile.avatar.name))
             user.profile.avatar = avatar
             user.profile.save()
         user.username = username
