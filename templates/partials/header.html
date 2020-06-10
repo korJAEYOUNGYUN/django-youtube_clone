@@ -12,20 +12,20 @@
             <ul>
                 {% if request.user.is_authenticated %}
                     <li>
-                        <a href={% url 'upload' %}>Upload</a>
+                        <a class="header__item" href={% url 'upload' %}>Upload</a>
                     </li>
                     <li>
-                        <a href={% url 'user_detail' request.user.username %}>Profile</a>
+                        <a class="header__item" href={% url 'user_detail' request.user.username %}>Profile</a>
                     </li>
                     <li>
-                        <a href={% url 'logout' %}>Logout</a>
+                        <a class="header__item" href={% url 'logout' %}>Logout</a>
                     </li>
                 {% else %}
                     <li>
-                        <a href={% url 'join' %}>Join</a>
+                        <a class="header__item" href={% url 'join' %}>Join</a>
                     </li>
                     <li>
-                        <a href={% url 'login' %}>Login</a>
+                        <a class="header__item" href={% url 'login' %}>Login</a>
                     </li>
                 {% endif %}
             </ul>

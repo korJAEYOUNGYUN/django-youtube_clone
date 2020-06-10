@@ -131,6 +131,10 @@ input[type='submit'] {
   background-color: #ea232c;
   margin-bottom: 50px;
 }
+
+.header__item {
+  color: white;
+}
   .header .header__wrapper {
     padding: 5px 0px;
     width: 100%;
